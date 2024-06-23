@@ -1,14 +1,14 @@
 import express, { Request, Response } from "express";
-import { UserModelRoutes } from "./app/modules/UserModel/userModel.route";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
+import router from "./app/routes";
 
 const app = express();
 //parser
 app.use(express.json());
 
 //application routes
-app.use("/api/auth", UserModelRoutes);
+app.use("/api/auth", router);
 
 app.get("/", async (req: Request, res: Response) => {
   res.send("Hello World!");
