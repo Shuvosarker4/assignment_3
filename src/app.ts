@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
+import { UserModelRoutes } from "./app/modules/UserModel/userModel.route";
 
 const app = express();
 //parser
 app.use(express.json());
-//application routes
 
-// app.use("/api/products", ProductRoutes);
-// app.use("/api/orders", OrderRoutes);
+//application routes
+app.use("/api/auth", UserModelRoutes);
 
 //Route error
 app.all("*", (req, res) => {

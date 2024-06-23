@@ -8,25 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const userModel_route_1 = require("./app/modules/UserModel/userModel.route");
-const app = (0, express_1.default)();
-//parser
-app.use(express_1.default.json());
-//application routes
-app.use("/api/auth", userModel_route_1.UserModelRoutes);
-//Route error
-app.all("*", (req, res) => {
-    res.json({
-        success: false,
-        message: "Route not found",
-    });
+exports.UserModelController = void 0;
+const userModel_service_1 = require("./userModel.service");
+const createUserModel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userModelData = req.body;
+        const result = yield userModel_service_1.UserModelService.createUserModelIntoDB(userModelData);
+        res.json({
+            success: true,
+            message: "User created successfully!",
+            data: result,
+        });
+    }
+    catch (err) {
+        res.json({
+            success: false,
+            message: "Failed to fetch data!",
+            data: err,
+        });
+    }
 });
-app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("Hello World!");
-}));
-exports.default = app;
+exports.UserModelController = {
+    createUserModel,
+};
