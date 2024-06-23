@@ -14,19 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userModel_route_1 = require("./app/modules/UserModel/userModel.route");
+const globalErrorHandler_1 = __importDefault(require("./app/middlewares/globalErrorHandler"));
+const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
 const app = (0, express_1.default)();
 //parser
 app.use(express_1.default.json());
 //application routes
 app.use("/api/auth", userModel_route_1.UserModelRoutes);
-//Route error
-app.all("*", (req, res) => {
-    res.json({
-        success: false,
-        message: "Route not found",
-    });
-});
 app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send("Hello World!");
 }));
+app.use(globalErrorHandler_1.default);
+//Route error
+app.use(notFound_1.default);
 exports.default = app;

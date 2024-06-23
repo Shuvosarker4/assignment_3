@@ -8,27 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModelController = void 0;
 const userModel_service_1 = require("./userModel.service");
-const createUserModel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const userModelData = req.body;
-        const result = yield userModel_service_1.UserModelService.createUserModelIntoDB(userModelData);
-        res.json({
-            success: true,
-            message: "User created successfully!",
-            data: result,
-        });
-    }
-    catch (err) {
-        res.json({
-            success: false,
-            message: "Failed to fetch data!",
-            data: err,
-        });
-    }
-});
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
+const http_status_1 = __importDefault(require("http-status"));
+const createUserModel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userModelData = req.body;
+    const result = yield userModel_service_1.UserModelService.createUserModelIntoDB(userModelData);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "User is created successfully",
+        data: result,
+    });
+}));
 exports.UserModelController = {
     createUserModel,
 };
