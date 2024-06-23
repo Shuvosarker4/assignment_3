@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 //application routes
-app.use("/api/auth", router);
+app.use("/api", router);
 
 app.get("/", async (req: Request, res: Response) => {
   res.send("Hello World!");

@@ -12,19 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const globalErrorHandler_1 = __importDefault(require("./app/middlewares/globalErrorHandler"));
-const notFound_1 = __importDefault(require("./app/middlewares/notFound"));
-const routes_1 = __importDefault(require("./app/routes"));
-const app = (0, express_1.default)();
-//parser
-app.use(express_1.default.json());
-//application routes
-app.use("/api", routes_1.default);
-app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send("Hello World!");
+exports.CarModelController = void 0;
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
+const http_status_1 = __importDefault(require("http-status"));
+const carModel_service_1 = require("./carModel.service");
+const createCarModel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const carModelData = req.body;
+    const result = yield carModel_service_1.CarModelService.createCarModelIntoDB(carModelData);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "User is created successfully",
+        data: result,
+    });
 }));
-app.use(globalErrorHandler_1.default);
-//Route error
-app.use(notFound_1.default);
-exports.default = app;
+exports.CarModelController = {
+    createCarModel,
+};
