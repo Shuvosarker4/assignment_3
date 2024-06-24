@@ -35,4 +35,20 @@ const carModelSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
+carModelSchema.pre("find", function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+carModelSchema.pre("findOne", function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+carModelSchema.pre("updateOne", function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+carModelSchema.pre("aggregate", function (next) {
+    this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+    next();
+});
 exports.CarModel = (0, mongoose_1.model)("Cars", carModelSchema);

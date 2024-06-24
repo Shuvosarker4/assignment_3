@@ -38,4 +38,23 @@ const carModelSchema = new Schema<TCarModel>(
   }
 );
 
+carModelSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+carModelSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+carModelSchema.pre("updateOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+carModelSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
 export const CarModel = model<TCarModel>("Cars", carModelSchema);

@@ -1,3 +1,5 @@
+import httpStatus from "http-status";
+import AppError from "../../middlewares/AppError";
 import { TCarModel } from "./carModel.interface";
 import { CarModel } from "./carModel.model";
 
@@ -15,6 +17,7 @@ const getSingleCarFromDB = async (id: string) => {
   const result = await CarModel.findOne({ _id: id });
   return result;
 };
+
 const updateSingleCarFromDB = async (
   id: string,
   payload: Partial<TCarModel>
@@ -32,9 +35,15 @@ const updateSingleCarFromDB = async (
   return result;
 };
 
+const deleteACarFromDB = async (id: string) => {
+  const result = await CarModel.updateOne({ id }, { isDeleted: true });
+  return result;
+};
+
 export const CarModelService = {
   createCarModelIntoDB,
   getAllCarModelIntoDB,
   getSingleCarFromDB,
   updateSingleCarFromDB,
+  deleteACarFromDB,
 };

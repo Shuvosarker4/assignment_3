@@ -11,4 +11,5 @@ router.post("/", carModel_controller_1.CarModelController.createCarModel);
 router.get("/", carModel_controller_1.CarModelController.getAllCarModel);
 router.get("/:id", carModel_controller_1.CarModelController.getSingleCar);
 router.put("/:id", carModel_controller_1.CarModelController.updateSingleCar);
+router.delete("/:id", carModel_controller_1.CarModelController.deleteACar);
 exports.CarModelRoutes = router;

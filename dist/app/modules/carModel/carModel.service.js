@@ -43,9 +43,14 @@ const updateSingleCarFromDB = (id, payload) => __awaiter(void 0, void 0, void 0,
     });
     return result;
 });
+const deleteACarFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield carModel_model_1.CarModel.updateOne({ id }, { isDeleted: true });
+    return result;
+});
 exports.CarModelService = {
     createCarModelIntoDB,
     getAllCarModelIntoDB,
     getSingleCarFromDB,
     updateSingleCarFromDB,
+    deleteACarFromDB,
 };

@@ -76,9 +76,20 @@ const updateSingleCar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
         data: result,
     });
 }));
+const deleteACar = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { Id } = req.params;
+    const result = yield carModel_service_1.CarModelService.deleteACarFromDB(Id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Car is deleted successfully",
+        data: result,
+    });
+}));
 exports.CarModelController = {
     createCarModel,
     getAllCarModel,
     getSingleCar,
     updateSingleCar,
+    deleteACar,
 };
