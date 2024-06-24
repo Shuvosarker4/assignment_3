@@ -65,6 +65,7 @@ const globalErrorHandler = (err, req, res, next) => {
         success: false,
         message,
         errorSources,
+        stack: err === null || err === void 0 ? void 0 : err.stack,
     });
 };
 exports.default = globalErrorHandler;

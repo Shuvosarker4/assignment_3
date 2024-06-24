@@ -19,8 +19,13 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CarModelService = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const AppError_1 = __importDefault(require("../../middlewares/AppError"));
 const carModel_model_1 = require("./carModel.model");
 const createCarModelIntoDB = (userModel) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield carModel_model_1.CarModel.create(userModel);
@@ -28,10 +33,16 @@ const createCarModelIntoDB = (userModel) => __awaiter(void 0, void 0, void 0, fu
 });
 const getAllCarModelIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield carModel_model_1.CarModel.find();
+    if (result.length === 0) {
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No Data Found");
+    }
     return result;
 });
 const getSingleCarFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield carModel_model_1.CarModel.findOne({ _id: id });
+    if (!result) {
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No Data Found");
+    }
     return result;
 });
 const updateSingleCarFromDB = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {

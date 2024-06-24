@@ -10,11 +10,17 @@ const createCarModelIntoDB = async (userModel: TCarModel) => {
 
 const getAllCarModelIntoDB = async () => {
   const result = await CarModel.find();
+  if (result.length === 0) {
+    throw new AppError(httpStatus.NOT_FOUND, "No Data Found");
+  }
   return result;
 };
 
 const getSingleCarFromDB = async (id: string) => {
   const result = await CarModel.findOne({ _id: id });
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, "No Data Found");
+  }
   return result;
 };
 
