@@ -27,6 +27,11 @@ const carModelSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
+    status: {
+        type: String,
+        enum: ["available", "not available"],
+    },
+    isDeleted: { type: Boolean },
 }, {
     timestamps: true,
 });
