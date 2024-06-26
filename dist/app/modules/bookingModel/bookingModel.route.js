@@ -8,4 +8,5 @@ const express_1 = __importDefault(require("express"));
 const bookingModel_controller_1 = require("./bookingModel.controller");
 const router = express_1.default.Router();
 router.post("/", bookingModel_controller_1.BookingModelController.createBookingModel);
+router.get("/", bookingModel_controller_1.BookingModelController.getAllBookingModel);
 exports.BookingModelRoutes = router;

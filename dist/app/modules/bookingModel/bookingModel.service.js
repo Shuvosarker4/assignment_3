@@ -8,13 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingModelService = void 0;
+const http_status_1 = __importDefault(require("http-status"));
+const AppError_1 = __importDefault(require("../../middlewares/AppError"));
 const bookingModel_model_1 = require("./bookingModel.model");
 const createBookingModelIntoDB = (bookingData) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield bookingModel_model_1.bookingModel.create(bookingData);
     return result;
 });
+const getAllBookingModelIntoDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield bookingModel_model_1.bookingModel.find();
+    if (result.length === 0) {
+        throw new AppError_1.default(http_status_1.default.NOT_FOUND, "No Data Found");
+    }
+    return result;
+});
 exports.BookingModelService = {
     createBookingModelIntoDB,
+    getAllBookingModelIntoDB,
 };
